@@ -158,11 +158,10 @@ function dodajMeritveVitalnihZnakov() {
 		    "ctx/territory": "SI",
 		    "ctx/time": datumInUra,
 		    "vital_signs/height_length/any_event/body_height_length": telesnaVisina,
-		    "vital_signs/body_weight/any_event/body_weight": telesnaTeza,
-		   	"vital_signs/body_temperature/any_event/temperature|magnitude": telesnaVisina,
-		   
-		    "vital_signs/blood_pressure/any_event/systolic": starost,
-		    "vital_signs/blood_pressure/any_event/diastolic": telesnaMascoba,
+  		    "vital_signs/body_weight/any_event/body_weight": telesnaTeza,
+ 		   	"vital_signs/body_temperature/any_event/temperature|magnitude": telesnaMascoba,
+ 		    "vital_signs/body_temperature/any_event/temperature|unit": starost
+ 	   
 		};
 		// ??? preglej tuki nujno!!
 		var parametriZahteve = {
