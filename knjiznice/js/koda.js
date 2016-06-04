@@ -146,7 +146,7 @@ function dodajMeritveVitalnihZnakov() {
 	var datumInUra = $("#dodajVitalnoDatumInUra").val();
 	var telesnaVisina = $("#dodajVitalnoTelesnaVisina").val();
 	var telesnaTeza = $("#dodajVitalnoTelesnaTeza").val();
-	var starost = $("#dodajVitalnoStarost").val();
+	
 	var telesnaMascoba = $("#dodajVitalnoTelesnaMascoba").val();
 	var BMI = telesnaTeza / (telesnaVisina * telesnaVisina);
 
@@ -166,8 +166,6 @@ function dodajMeritveVitalnihZnakov() {
 		    "vital_signs/height_length/any_event/body_height_length": telesnaVisina,
   		    "vital_signs/body_weight/any_event/body_weight": telesnaTeza,
  		   	"vital_signs/body_mass_index":  BMI,
- 		    "vital_signs/blood_pressure/any_event/systolic": starost
- 	   
 		};
 		// ??? preglej tuki nujno!!
 		var parametriZahteve = {
