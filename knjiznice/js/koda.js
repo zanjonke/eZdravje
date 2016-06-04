@@ -1,4 +1,4 @@
-//ZAČETEK KOPIJE IZ 8.VAJ
+
 /**
  * Generator podatkov za novega pacienta, ki bo uporabljal aplikacijo. Pri
  * generiranju podatkov je potrebno najprej kreirati novega pacienta z
@@ -43,6 +43,10 @@ function getSessionId() {
  * V primeru uspešne akcije izpiši sporočilo s pridobljenim EHR ID, sicer
  * izpiši napako.
  */
+ 
+ 
+ //ZAČETEK KOPIJE IZ 8.VAJ
+ 
 function kreirajEHRzaBolnika() {
 	sessionId = getSessionId();
 
@@ -134,6 +138,7 @@ function preberiEHRodBolnika() {
  * telesna višina, telesna teža, sistolični in diastolični krvni tlak,
  * nasičenost krvi s kisikom in merilec).
  */
+ 
 function dodajMeritveVitalnihZnakov() {
 	sessionId = getSessionId();
 
@@ -143,6 +148,7 @@ function dodajMeritveVitalnihZnakov() {
 	var telesnaTeza = $("#dodajVitalnoTelesnaTeza").val();
 	var starost = $("#dodajVitalnoStarost").val();
 	var telesnaMascoba = $("#dodajVitalnoTelesnaMascoba").val();
+	var BMI = telesnaTeza / (telesnaVisina * telesnaVisina);
 
 	if (!ehrId || ehrId.trim().length == 0) {
 		$("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo " +
@@ -159,8 +165,8 @@ function dodajMeritveVitalnihZnakov() {
 		    "ctx/time": datumInUra,
 		    "vital_signs/height_length/any_event/body_height_length": telesnaVisina,
   		    "vital_signs/body_weight/any_event/body_weight": telesnaTeza,
- 		   	"vital_signs/body_temperature/any_event/temperature|magnitude": telesnaMascoba,
- 		    "vital_signs/body_temperature/any_event/temperature|unit": starost
+ 		   	"vital_signs/body_mass_index":  BMI,
+ 		    "vital_signs/blood_pressure/any_event/systolic": starost
  	   
 		};
 		// ??? preglej tuki nujno!!
@@ -283,6 +289,7 @@ function preberiMeritveVitalnihZnakov() {
 	}
 }
 
+/*
 
 $(document).ready(function() {
 
@@ -291,6 +298,7 @@ $(document).ready(function() {
    * EHR zapisa za novega bolnika, ko uporabnik izbere vrednost iz
    * padajočega menuja (npr. Pujsa Pepa).
    */
+   /*
   $('#preberiPredlogoBolnika').change(function() {
     $("#kreirajSporocilo").html("");
     var podatki = $(this).val().split(",");
@@ -304,6 +312,7 @@ $(document).ready(function() {
    * ko uporabnik izbere vrednost iz padajočega menuja
    * (npr. Dejan Lavbič, Pujsa Pepa, Ata Smrk)
    */
+   /*
 	$('#preberiObstojeciEHR').change(function() {
 		$("#preberiSporocilo").html("");
 		$("#preberiEHRid").val($(this).val());
@@ -315,6 +324,7 @@ $(document).ready(function() {
    * nasičenost krvi s kisikom in merilec) pri vnosu meritve vitalnih znakov
    * bolnika, ko uporabnik izbere vrednosti iz padajočega menuja (npr. Ata Smrk)
    */
+   /*
 	$('#preberiObstojeciVitalniZnak').change(function() {
 		$("#dodajMeritveVitalnihZnakovSporocilo").html("");
 		var podatki = $(this).val().split("|");
@@ -332,6 +342,7 @@ $(document).ready(function() {
    * bolnika, ko uporabnik izbere vrednost iz padajočega menuja
    * (npr. Ata Smrk, Pujsa Pepa)
    */
+   /*
 	$('#preberiEhrIdZaVitalneZnake').change(function() {
 		$("#preberiMeritveVitalnihZnakovSporocilo").html("");
 		$("#rezultatMeritveVitalnihZnakov").html("");
@@ -350,10 +361,3 @@ $(document).ready(function() {
  */
  
  //KONEC KOPIJE KODE IZ 8. VAJ
-function generirajPodatke(stPacienta) {
-  ehrId = "";
-
-  // TODO: Potrebno implementirati
-
-  return ehrId;
-}
