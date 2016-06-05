@@ -165,7 +165,7 @@ function dodajMeritveVitalnihZnakov() {
 		    "ctx/time": datumInUra,
 		    "vital_signs/height_length/any_event/body_height_length": telesnaVisina,
   		    "vital_signs/body_weight/any_event/body_weight": telesnaTeza,
- 		   	"vital_signs/body_mass_index":  BMI,
+ 		   	"vital_signs/body_mass_index/any_event/body mass_index":  BMI,
 		};
 		// ??? preglej tuki nujno!!
 		var parametriZahteve = {
@@ -220,7 +220,7 @@ function preberiMeritveVitalnihZnakov() {
           " " + party.lastNames + "'</b>.</span><br/><br/>");
 				if (tip == "odstotek telesne teže") {
 					$.ajax({
-  					    url: baseUrl + "/view/" + ehrId + "/" + "body_temperature",
+  					    url: baseUrl + "/view/" + ehrId + "/" + "body_mass_index",
 					    type: 'GET',
 					    headers: {"Ehr-Session": sessionId},
 					    success: function (res) {
