@@ -166,6 +166,7 @@ function dodajMeritveVitalnihZnakov() {
 		    "vital_signs/height_length/any_event/body_height_length": telesnaVisina,
   		    "vital_signs/body_weight/any_event/body_weight": telesnaTeza,
  		   	"vital_signs/body_mass_index/any_event/body mass_index":  BMI,
+ 		   	"vital_signs/body_mass_index|unit":"kg/m2",
 		};
 		// ??? preglej tuki nujno!!
 		var parametriZahteve = {
@@ -218,7 +219,7 @@ function preberiMeritveVitalnihZnakov() {
 				$("#rezultatMeritveVitalnihZnakov").html("<br/><span>Pridobivanje " +
           "podatkov za <b>'" + tip + "'</b> bolnika <b>'" + party.firstNames +
           " " + party.lastNames + "'</b>.</span><br/><br/>");
-				if (tip == "odstotek telesne teže") {
+				if (tip == "BMI") {
 					$.ajax({
   					    url: baseUrl + "/view/" + ehrId + "/" + "body_mass_index",
 					    type: 'GET',
@@ -227,7 +228,7 @@ function preberiMeritveVitalnihZnakov() {
 					    	if (res.length > 0) {
 						    	var results = "<table class='table table-striped " +
                     "table-hover'><tr><th>Datum in ura</th>" +
-                    "<th class='text-right'>Odstotek telesne teže</th></tr>";
+                    "<th class='text-right'>BMI</th></tr>";
 						        for (var i in res) {
 						            results += "<tr><td>" + res[i].time +
                           "</td><td class='text-right'>" + res[i].temperature +
@@ -287,7 +288,7 @@ function preberiMeritveVitalnihZnakov() {
 	}
 }
 
-/*
+
 
 $(document).ready(function() {
 
@@ -296,7 +297,7 @@ $(document).ready(function() {
    * EHR zapisa za novega bolnika, ko uporabnik izbere vrednost iz
    * padajočega menuja (npr. Pujsa Pepa).
    */
-   /*
+   
   $('#preberiPredlogoBolnika').change(function() {
     $("#kreirajSporocilo").html("");
     var podatki = $(this).val().split(",");
@@ -310,7 +311,7 @@ $(document).ready(function() {
    * ko uporabnik izbere vrednost iz padajočega menuja
    * (npr. Dejan Lavbič, Pujsa Pepa, Ata Smrk)
    */
-   /*
+   
 	$('#preberiObstojeciEHR').change(function() {
 		$("#preberiSporocilo").html("");
 		$("#preberiEHRid").val($(this).val());
@@ -322,7 +323,7 @@ $(document).ready(function() {
    * nasičenost krvi s kisikom in merilec) pri vnosu meritve vitalnih znakov
    * bolnika, ko uporabnik izbere vrednosti iz padajočega menuja (npr. Ata Smrk)
    */
-   /*
+   
 	$('#preberiObstojeciVitalniZnak').change(function() {
 		$("#dodajMeritveVitalnihZnakovSporocilo").html("");
 		var podatki = $(this).val().split("|");
@@ -330,9 +331,7 @@ $(document).ready(function() {
 		$("#dodajVitalnoDatumInUra").val(podatki[1]);
 		$("#dodajVitalnoTelesnaVisina").val(podatki[2]);
 		$("#dodajVitalnoTelesnaTeza").val(podatki[3]);
-		$("#dodajVitalnoTelesnaMascoba").val(podatki[4]);
-		$("#dodajVitalnoStarost").val(podatki[5]);
-
+	
 	});
 
   /**
@@ -340,7 +339,7 @@ $(document).ready(function() {
    * bolnika, ko uporabnik izbere vrednost iz padajočega menuja
    * (npr. Ata Smrk, Pujsa Pepa)
    */
-   /*
+   
 	$('#preberiEhrIdZaVitalneZnake').change(function() {
 		$("#preberiMeritveVitalnihZnakovSporocilo").html("");
 		$("#rezultatMeritveVitalnihZnakov").html("");
