@@ -7,12 +7,27 @@
  * @param stPacienta zaporedna številka pacienta (1, 2 ali 3)
  * @return ehrId generiranega pacienta
  */
+
+var stPacienta = 1;
 function generirajPodatke(stPacienta) {
-  ehrId = "";
+  while(stPacienta != 3){
+  	narediUporabnike(stPacienta);
+  	stPacienta++;
+  }
+}
 
-  // TODO: Potrebno implementirati
-
-  return ehrId;
+function narediUporabnike(stevec){
+	switch(stevec){
+		case 1:
+			uporabnik("Prekomerno", "Hranjen", 180, 90, "");
+			break;
+		case 2:
+			uporabnik("Normalno", "Hranjen", 180, 70, "");
+			break;
+		case 3:
+			uporabnik("Pod", "Hranjen", 180, 50, "");
+			break;
+	}
 }
 
 var baseUrl = 'https://rest.ehrscape.com/rest/v1';
@@ -35,6 +50,90 @@ function getSessionId() {
         async: false
     });
     return response.responseJSON.sessionId;
+}
+
+
+function uporabnik(ime, priimek, visina, teza, datumInUra){
+	//kopija kode iz funkcije kreirajEHRzaBolnika()
+	$.ajaxSetup({
+	    headers: {"Ehr-Session": sessionId}
+	});
+	$.ajax({
+	    url: baseUrl + "/ehr",
+	    type: 'POST',
+	    success: function (data) {
+	        var ehrId = data.ehrId;
+	        var partyData = {
+	            firstNames: ime,
+	            lastNames: priimek,
+	            dateOfBirth: datumRojstva,
+	            partyAdditionalInfo: [{key: "ehrId", value: ehrId}]
+	        };
+	        $.ajax({
+	            url: baseUrl + "/demographics/party",
+	            type: 'POST',
+	            contentType: 'application/json',
+	            data: JSON.stringify(partyData),
+	            success: function (party) {
+	                if (party.action == 'CREATE') {
+	                    $("#kreirajSporocilo").html("<span class='obvestilo " +
+                      "label label-success fade-in'>Uspešno kreiran EHR '" +
+                      ehrId + "'.</span>");
+	                    $("#preberiEHRid").val(ehrId);
+	                }
+	            },
+	            error: function(err) {
+	            	$("#kreirajSporocilo").html("<span class='obvestilo label " +
+                "label-danger fade-in'>Napaka '" +
+                JSON.parse(err.responseText).userMessage + "'!");
+	            }
+	        });
+	    }
+	});
+	//kopija kode iz funkcije dodajMeritveVitalnihZnakov()
+	var BMI = teza / (visina * visina);
+	$.ajaxSetup({
+		    headers: {"Ehr-Session": sessionId}
+		});
+		var podatki = {
+			// Struktura predloge je na voljo na naslednjem spletnem naslovu:
+      // https://rest.ehrscape.com/rest/v1/template/Vital%20Signs/example
+		    "ctx/language": "en",
+		    "ctx/territory": "SI",
+		    "ctx/time": datumInUra,
+		    "vital_signs/height_length/any_event/body_height_length": visina,
+  		    "vital_signs/body_weight/any_event/body_weight": teza,
+ 		   	"vital_signs/body_mass_index/any_event/body mass_index":  BMI,
+ 		   	"vital_signs/body_mass_index|unit":"kg/m2",
+		};
+		// ??? preglej tuki nujno!!
+		var parametriZahteve = {
+		    ehrId: ehrId,
+		    templateId: 'Vital Signs',
+		    format: 'FLAT',
+		};
+		$.ajax({
+		    url: baseUrl + "/composition?" + $.param(parametriZahteve),
+		    type: 'POST',
+		    contentType: 'application/json',
+		    data: JSON.stringify(podatki),
+		    success: function (res) {
+		        $("#dodajMeritveVitalnihZnakovSporocilo").html(
+              "<span class='obvestilo label label-success fade-in'>" +
+              res.meta.href + ".</span>");
+		    },
+		    error: function(err) {
+		    	$("#dodajMeritveVitalnihZnakovSporocilo").html(
+            "<span class='obvestilo label label-danger fade-in'>Napaka '" +
+            JSON.parse(err.responseText).userMessage + "'!");
+		    }
+		});
+
+		
+		
+		
+	
+	
 }
 
 
