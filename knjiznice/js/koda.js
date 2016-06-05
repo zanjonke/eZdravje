@@ -8,8 +8,9 @@
  * @return ehrId generiranega pacienta
  */
 
-var stPacienta = 1;
+
 function generirajPodatke(stPacienta) {
+	var stPacienta = 1;
   while(stPacienta != 3){
   	narediUporabnike(stPacienta);
   	stPacienta++;
@@ -17,6 +18,7 @@ function generirajPodatke(stPacienta) {
 }
 
 function narediUporabnike(stevec){
+
 	switch(stevec){
 		case 1:
 			uporabnik("Prekomerno", "Hranjen", 180, 90, "");
@@ -54,6 +56,7 @@ function getSessionId() {
 
 
 function uporabnik(ime, priimek, visina, teza, datumInUra){
+	sessionId = getSessionId();
 	//kopija kode iz funkcije kreirajEHRzaBolnika()
 	$.ajaxSetup({
 	    headers: {"Ehr-Session": sessionId}
