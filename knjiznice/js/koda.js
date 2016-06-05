@@ -21,13 +21,13 @@ function narediUporabnike(stevec){
 
 	switch(stevec){
 		case 1:
-			uporabnik("Prekomerno", "Hranjen", 180, 90, "");
+			uporabnik("Prekomerno", "Hranjen","1996-1-1T0-0", 180, 90, "2016-1-1T0-0Z");
 			break;
 		case 2:
-			uporabnik("Normalno", "Hranjen", 180, 70, "");
+			uporabnik("Normalno", "Hranjen","1996-1-1T0-0" 180, 70, "2016-1-1T0-0Z");
 			break;
 		case 3:
-			uporabnik("Pod", "Hranjen", 180, 50, "");
+			uporabnik("Pod", "Hranjen", 180,"1996-1-1T0-0" 50, "2016-1-1T0-0Z");
 			break;
 	}
 }
@@ -55,7 +55,7 @@ function getSessionId() {
 }
 
 
-function uporabnik(ime, priimek, visina, teza, datumInUra){
+function uporabnik(ime, priimek, datumRojstva, visina, teza, datumInUra){
 	sessionId = getSessionId();
 	//kopija kode iz funkcije kreirajEHRzaBolnika()
 	$.ajaxSetup({
